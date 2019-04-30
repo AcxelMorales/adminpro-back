@@ -1,4 +1,3 @@
-const pathN = require('path');
 const fs = require('fs');
 
 const Usuario = require('../models/Usuario.model');
@@ -57,7 +56,7 @@ exports.uploadImage = (req, res) => {
     let nombreArchivo = `${id}-${new Date().getMilliseconds()}.${extension}`;
 
     // Mover el archivo a un path
-    const path = pathN.resolve(__dirname, `../uploads/${table}/${nombreArchivo}`);
+    const path = `./upload/${table}/${nombreArchivo}`;
 
     archivo.mv(path, err => {
         if (err) {
@@ -90,10 +89,12 @@ const upForTable = (table, id, nameFile, res) => {
                 });
             }
 
-            let pathOld = pathN.resolve(__dirname, `../uploads/usuarios/${usuarioDB.img}`);
+            let pathOld = `./upload/usuarios/${usuarioDB.img}`;
 
             // Si existe, elimina la img anterior
-            if (fs.existsSync(pathOld)) fs.unlinkSync(pathOld);
+            if (fs.existsSync(pathOld)) {
+                fs.unlinkSync(pathOld);
+            }
 
             usuarioDB.img = nameFile;
 
@@ -133,7 +134,7 @@ const upForTable = (table, id, nameFile, res) => {
                 });
             }
 
-            let pathOld = pathN.resolve(__dirname, `../uploads/medicos/${medicoDB.img}`);
+            let pathOld = `./upload/medicos/${medicoDB.img}`;
 
             // Si existe, elimina la img anterior
             if (fs.existsSync(pathOld)) fs.unlinkSync(pathOld);
@@ -174,7 +175,7 @@ const upForTable = (table, id, nameFile, res) => {
                 });
             }
 
-            let pathOld = pathN.resolve(__dirname, `../uploads/hospitales/${hospitalDB.img}`);
+            let pathOld = `./upload/hospitales/${hospitalDB.img}`;
 
             // Si existe, elimina la img anterior
             if (fs.existsSync(pathOld)) fs.unlinkSync(pathOld);

@@ -13,7 +13,7 @@ app.get('/usuario', usuarioController.getUsuarios);
 // =====================
 //         POST
 // =====================
-app.post('/usuario', auth.verifyToken, usuarioController.postUsuario);
+app.post('/usuario', usuarioController.postUsuario);
 
 // =====================
 //         PUT
