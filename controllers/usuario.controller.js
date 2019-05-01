@@ -8,7 +8,7 @@ exports.getUsuarios = (req, res) => {
     let since = req.query.since || 0;
     since = Number(since);
 
-    Usuario.find({}, 'nombre email img role')
+    Usuario.find({}, 'nombre email img role google password')
         .skip(since)
         .limit(5)
         .exec((err, usuariosDB) => {

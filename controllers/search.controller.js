@@ -89,7 +89,7 @@ const searchMedicos = (regex) => {
 
 const searchUsuarios = (regex) => {
     return new Promise((resolve, reject) => {
-        Usuario.find({}, 'nombre email role').or([{ 'nombre': regex }, { 'email': regex }]).exec((err, usuariosDB) => {
+        Usuario.find({}, 'nombre email role img').or([{ 'nombre': regex }, { 'email': regex }]).exec((err, usuariosDB) => {
             if (err) reject('Error al cargar usuarios', err);
             else resolve(usuariosDB);
         });
