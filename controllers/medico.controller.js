@@ -31,6 +31,41 @@ exports.getMedicos = (req, res) => {
         });
 }
 
+// ==========================
+//  GET Medico ID CONTROLLER
+// ==========================
+exports.getMedico = (req, res) => {
+    let id = req.params.id;
+
+    Medico.findById(id)
+        .populate('usuario', 'nombre email img')
+        .populate('hospital')
+        .exec((err, medicoDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al buscar un medico',
+                    errors: err
+                });
+            }
+
+            if (!medicoDB) {
+                return res.status(400).json({
+                    ok: false,
+                    message: `El medico con el id: ${id} no existe`,
+                    errors: {
+                        message: 'No existe un medico con ese ID'
+                    }
+                });
+            }
+
+            res.status(200).json({
+                ok: true,
+                medico: medicoDB
+            });
+        });
+}
+
 // ========================
 //  POST Medico CONTROLLER
 // ========================

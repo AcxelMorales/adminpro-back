@@ -13,16 +13,16 @@ app.get('/usuario', usuarioController.getUsuarios);
 // =====================
 //         POST
 // =====================
-app.post('/usuario', usuarioController.postUsuario);
+app.post('/usuario' , usuarioController.postUsuario);
 
 // =====================
 //         PUT
 // =====================
-app.put('/usuario/:id', auth.verifyToken, usuarioController.putUsuario);
+app.put('/usuario/:id', [auth.verifyToken, auth.verifyADMIN_o_MismoUsuario], usuarioController.putUsuario);
 
 // =====================
 //       DELETE
 // =====================
-app.delete('/usuario/:id', auth.verifyToken, usuarioController.deleteUsuario);
+app.delete('/usuario/:id', [auth.verifyToken, auth.verifyADMIN_ROLE], usuarioController.deleteUsuario);
 
 module.exports = app;

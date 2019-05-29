@@ -4,12 +4,12 @@ const Hospital = require('../models/Hospital.model');
 //  GET Hospitales CONTROLLER
 // ===========================
 exports.getHospitales = (req, res) => {
-    let since = req.query.since || 0;
-    since = Number(since);
+    // let since = req.query.since || 0;
+    // since = Number(since);
 
     Hospital.find({})
-        .skip(since)
-        .limit(5)
+        // .skip(since)
+        // .limit(5)
         .populate('usuario', 'nombre email')
         .exec((err, hospitalesDB) => {
             if (err) {
@@ -26,6 +26,40 @@ exports.getHospitales = (req, res) => {
                     hospitales: hospitalesDB,
                     total: count
                 });
+            });
+        });
+}
+
+// ============================
+//  GET Hospital ID CONTROLLER
+// ============================
+exports.getHospital = (req, res) => {
+    let id = req.params.id;
+
+    Hospital.findById(id)
+        .populate('usuario', 'nombre img email')
+        .exec((err, hospitalDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al buscar hospital',
+                    errors: err
+                });
+            }
+
+            if (!hospitalDB) {
+                return res.status(400).json({
+                    ok: false,
+                    message: `El hospital con el ID: ${id} no existe`,
+                    errors: {
+                        message: 'No existe un hospital con ese ID'
+                    }
+                });
+            }
+
+            res.status(200).json({
+                ok: true,
+                hospital: hospitalDB
             });
         });
 }

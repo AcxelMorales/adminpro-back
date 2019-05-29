@@ -11,6 +11,11 @@ const app = express();
 app.get('/hospital', hospitalController.getHospitales);
 
 // =====================
+//        GET ID
+// =====================
+app.get('/hospital/:id', hospitalController.getHospital);
+
+// =====================
 //         POST
 // =====================
 app.post('/hospital', auth.verifyToken, hospitalController.postHospital);

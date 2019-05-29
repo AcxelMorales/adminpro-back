@@ -80,7 +80,7 @@ const searchHospitales = (regex) => {
 
 const searchMedicos = (regex) => {
     return new Promise((resolve, reject) => {
-        Medico.find({ nombre: regex }).populate('usuario', 'nombre email').exec((err, medicosDB) => {
+        Medico.find({ nombre: regex }).populate('usuario', 'nombre email').populate('hospital', 'nombre').exec((err, medicosDB) => {
             if (err) reject('Error al cargar medicos', err);
             else resolve(medicosDB);
         });

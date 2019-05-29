@@ -11,6 +11,11 @@ const app = express();
 app.get('/medico', medicoController.getMedicos);
 
 // =====================
+//       GET ID
+// =====================
+app.get('/medico/:id', medicoController.getMedico);
+
+// =====================
 //         POST
 // =====================
 app.post('/medico', auth.verifyToken, medicoController.postMedico);
